@@ -21,10 +21,11 @@ class TextExpander(object):
         for file_path in files:
             filename = os.path.basename(file_path)
             filename_without_ext = os.path.splitext(
-                filename)[0].replace('-_', ' ').title()
+                filename)[0].replace('_', ' ').replace('-', ' ').title()
 
             if not os.path.isfile(file_path):
                 continue
+
             if query and query.lower() not in filename.lower():
                 continue
 
@@ -33,6 +34,8 @@ class TextExpander(object):
                 'name': filename,
                 'normalized_name': filename_without_ext
             })
+
+        result = sorted(result, key=lambda k: k['normalized_name'])
 
         return result
 
