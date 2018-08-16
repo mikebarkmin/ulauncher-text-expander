@@ -86,10 +86,6 @@ make link
 
 To see your changes, stop ulauncher and run it from the command line with: ```ulauncher -v```.
 
-## Known issues
-
-* The placeholder dialog layout is not the best. I am trying to understand how can I style it properly.
-
 ## License
 
 MIT
