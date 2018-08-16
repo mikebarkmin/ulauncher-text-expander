@@ -1,0 +1,25 @@
+{
+    "manifest_version": "2",
+    "api_version": "1",
+    "name": "Text Expander",
+    "description": "Expand text using Ulauncher",
+    "developer_name": "Bruno Paz",
+    "icon": "images/icon.png",
+    "options": {
+        "query_debounce": 0.2
+    },
+    "preferences": [{
+        "id": "kw",
+        "type": "keyword",
+        "name": "Text Expander",
+        "description": "Test Expander",
+        "default_value": "tex"
+    },
+    {
+        "id": "expansions_dir",
+        "type": "input",
+        "name": "Text Expansions Directory",
+        "description": "The directory where to look for Text Expander snippets",
+        "default_value": ""
+    }]
+}
