@@ -12,6 +12,18 @@
 * Python >= 2.7
 * [Date Parser library](https://dateparser.readthedocs.io/en/latest/) - Used to parse date placeholders.
 
+## Install
+
+Open ulauncher preferences window -> extensions -> add extension and paste the following url:
+
+```https://github.com/brpaz/ulauncher-text-expander```
+
+Where:
+
+* name: its an unique identifier for the placeholder. must by unique in the snippet.
+* label: A description of the placeholder. This is the label that will appear on the Dialog window to fill in the placeholder values as the description of the placeholder.
+* default: A default value of the placeholder
+
 
 ## Usage
 
@@ -32,18 +44,6 @@ You can define input placeholders in your snippet like this:
 ```
 @input({"name":"hello","label":"This is some placeholder", "default":"Some default value"})
 ```
-
-## Install
-
-Open ulauncher preferences window -> extensions -> add extension and paste the following url:
-
-```https://github.com/brpaz/ulauncher-text-expander```
-
-Where:
-
-* name: its an unique identifier for the placeholder. must by unique in the snippet.
-* label: A description of the placeholder. This is the label that will appear on the Dialog window to fill in the placeholder values as the description of the placeholder.
-* default: A default value of the placeholder
 
 #### Select type placeholders
 
