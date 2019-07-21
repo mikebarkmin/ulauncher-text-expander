@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 """
 This script parses the text expansion file contents and displays a dialog to ask the user to fill in any placeholders
 defined in the text snippet.
@@ -12,14 +14,11 @@ import dateparser
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk
 
-RE_INPUT_PLACEHOLDERS = re.compile(r"@input\(([^)]+)\)",
-                                   re.IGNORECASE)
+RE_INPUT_PLACEHOLDERS = re.compile(r"@input\(([^)]+)\)", re.IGNORECASE)
 
-RE_SELECT_PLACEHOLDERS = re.compile(r"@select\(([^)]+)\)",
-                                    re.IGNORECASE)
+RE_SELECT_PLACEHOLDERS = re.compile(r"@select\(([^)]+)\)", re.IGNORECASE)
 
-RE_DATE_PLACEHOLDERS = re.compile(r"@date\(([^)]+)\)",
-                                  re.IGNORECASE)
+RE_DATE_PLACEHOLDERS = re.compile(r"@date\(([^)]+)\)", re.IGNORECASE)
 
 GTK_STYLE = """
 * {
@@ -51,12 +50,8 @@ def parse_date_placeholders(contents):
             if dt is not None:
                 formatted_dt = dt.strftime(dt_format)
 
-                contents = re.sub(
-                    '@date\(%s\)' % re.escape(placeholder),
-                    formatted_dt.title(),
-                    contents,
-                    1
-                )
+                contents = re.sub('@date\(%s\)' % re.escape(placeholder),
+                                  formatted_dt.title(), contents, 1)
         except ValueError:
             pass
 
@@ -68,9 +63,12 @@ class PlaceholdersDialog(Gtk.Dialog):
 
     def __init__(self, content, input_placeholders=[], select_placeholders=[]):
 
-        Gtk.Dialog.__init__(self, "Fill in the placeholder values", None, 0,
-                            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                             Gtk.STOCK_OK, Gtk.ResponseType.OK), use_header_bar=True)
+        Gtk.Dialog.__init__(self,
+                            "Fill in the placeholder values",
+                            None,
+                            0, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                Gtk.STOCK_OK, Gtk.ResponseType.OK),
+                            use_header_bar=True)
         self.content = content
         self.inputs = []
         self.selects = []
@@ -96,10 +94,8 @@ class PlaceholdersDialog(Gtk.Dialog):
         style_provider.load_from_data(GTK_STYLE)
 
         Gtk.StyleContext.add_provider_for_screen(
-            Gdk.Screen.get_default(),
-            style_provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_USER
-        )
+            Gdk.Screen.get_default(), style_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
     def build_widgets_for_input_placeholders(self, placeholders=[]):
         """ Parses the text, extract any input placeholders variables and builds the ui to ask for the placeholders values """
@@ -156,12 +152,8 @@ class PlaceholdersDialog(Gtk.Dialog):
 
         for item in self.inputs:
             placeholder_value = item['widget'].get_text()
-            self.content = re.sub(
-                '@input\({"name":"%s"[^}]+}\)' % item['key'],
-                placeholder_value,
-                self.content,
-                1
-            )
+            self.content = re.sub('@input\({"name":"%s"[^}]+}\)' % item['key'],
+                                  placeholder_value, self.content, 1)
 
         for item in self.selects:
             placeholder_value = item['widget'].get_active_text()
@@ -170,10 +162,7 @@ class PlaceholdersDialog(Gtk.Dialog):
 
             self.content = re.sub(
                 '@select\({"name":"%s"[^}]+}\)' % item['key'],
-                placeholder_value,
-                self.content,
-                1
-            )
+                placeholder_value, self.content, 1)
 
         return self.content
 
@@ -181,7 +170,7 @@ class PlaceholdersDialog(Gtk.Dialog):
 file_path = sys.argv[1]
 
 if file_path is None:
-    print "Please specify a valid file path"
+    print("Please specify a valid file path")
     sys.exit(-1)
 
 # Read the contents from the snippet file.
@@ -195,11 +184,8 @@ select_placeholders = RE_SELECT_PLACEHOLDERS.findall(contents)
 input_placeholders = RE_INPUT_PLACEHOLDERS.findall(contents)
 
 if input_placeholders or select_placeholders:
-    dialog = PlaceholdersDialog(
-        contents,
-        input_placeholders,
-        select_placeholders
-    )
+    dialog = PlaceholdersDialog(contents, input_placeholders,
+                                select_placeholders)
     dialog.connect("destroy", Gtk.main_quit)
 
     result = dialog.run()
@@ -207,7 +193,6 @@ if input_placeholders or select_placeholders:
     if result == Gtk.ResponseType.OK:
         contents = dialog.get_processed_content()
 
-
-print contents.encode('utf-8')
+print(contents.encode('utf-8'))
 
 sys.exit(0)

@@ -1,11 +1,11 @@
-""" Cheats manager module """
+""" Text Expander module """
 
 import os
 import errno
 import glob2
 
 
-class TextExpander(object):
+class TextExpander():
     """ Class that manages the Text Expansions Snippets """
 
     def __init__(self, expansions_dir):
@@ -20,8 +20,8 @@ class TextExpander(object):
         result = []
         for file_path in files:
             filename = os.path.basename(file_path)
-            filename_without_ext = os.path.splitext(
-                filename)[0].replace('_', ' ').replace('-', ' ').title()
+            filename_without_ext = os.path.splitext(filename)[0].replace(
+                '_', ' ').replace('-', ' ').title()
 
             if not os.path.isfile(file_path):
                 continue
@@ -44,7 +44,8 @@ class TextExpander(object):
         try:
             os.makedirs(self.expansions_dir)
         except OSError as exc:
-            if exc.errno == errno.EEXIST and os.path.isdir(self.expansions_dir):
+            if exc.errno == errno.EEXIST and os.path.isdir(
+                    self.expansions_dir):
                 pass
             else:
                 raise
