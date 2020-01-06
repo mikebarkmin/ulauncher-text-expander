@@ -59,8 +59,7 @@ class TextExpanderExtension(Extension):
                 ExtensionResultItem(
                     icon='images/icon.png',
                     name=item['normalized_name'],
-                    description=
-                    'Select to fill placeholders and copy the contents to the clipboard',
+                    description='Select to fill placeholders and copy the contents to the clipboard',
                     on_enter=ExtensionCustomAction(item)))
 
         return RenderResultListAction(items)
@@ -88,10 +87,10 @@ class PreferencesEventListener(EventListener):
     def on_event(self, event, extension):
         if event.preferences["expansions_dir"] != "":
             extension.expansions_service.set_expansions_dir(
-                event.preferences['expansions_dir'])
+                os.path.expanduser(event.preferences['expansions_dir']))
         else:
             extension.expansions_service.set_expansions_dir(
-                extension.get_default_expansions_dir())
+                os.path.expanduser(extension.get_default_expansions_dir()))
 
 
 class PreferencesUpdateEventListener(EventListener):

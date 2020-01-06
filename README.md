@@ -14,8 +14,11 @@
 
 * [Ulauncher](https://ulauncher.io/) > 5
 * Python >= 3
-* [Date Parser library](https://dateparser.readthedocs.io/en/latest/) - Used to parse date placeholders.
-  * ```pip3 install dateparser```
+
+Before installing, make sure to install all the needed Python packages for your system.
+
+```pip3 install dateparser glob2 gobject PyGObject```
+
 
 ## Install
 
@@ -32,7 +35,7 @@ Where:
 
 ## Usage
 
-- For your snippets to be loaded by the extension, place then in .txt files in the snippets directory. By default, the extension will look for files in ```/home/bruno/.config/ulauncher/ext_preferences/text-expander/expansions```. You can change it the extension settings.
+- For your snippets to be loaded by the extension, place then in .txt files in the snippets directory. By default, the extension will look for files in ```"~/.config/ulauncher/text-expander/expansions"```. You can change it the extension settings.
 - Type ```tex``` in Ulauncher and select the snippet you want to use. It the snippet has any placeholders, a new window will appear where you can fill the values of that placeholders. After that the final snippet with the placeholders filled in will be copied to the clipboard.
 
 

@@ -7,18 +7,20 @@
     "options": {
         "query_debounce": 0.2
     },
-    "preferences": [{
-        "id": "kw",
-        "type": "keyword",
-        "name": "Text Expander",
-        "description": "Test Expander",
-        "default_value": "tex"
-    },
-    {
-        "id": "expansions_dir",
-        "type": "input",
-        "name": "Text Expansions Directory",
-        "description": "The directory where to look for Text Expander snippets",
-        "default_value": ""
-    }]
+    "preferences": [
+        {
+            "id": "kw",
+            "type": "keyword",
+            "name": "Text Expander",
+            "description": "Test Expander",
+            "default_value": "tex"
+        },
+        {
+            "id": "expansions_dir",
+            "type": "input",
+            "name": "Text Expansions Directory",
+            "description": "The directory where to look for Text Expander snippets",
+            "default_value": "~/.config/ulauncher/ext_preferences/text-expander/expansions"
+        }
+    ]
 }

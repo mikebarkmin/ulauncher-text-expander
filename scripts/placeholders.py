@@ -1,5 +1,4 @@
 # pylint: skip-file
-
 """
 This script parses the text expansion file contents and displays a dialog to ask the user to fill in any placeholders
 defined in the text snippet.
