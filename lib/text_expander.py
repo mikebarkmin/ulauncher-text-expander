@@ -7,7 +7,6 @@ import glob2
 
 class TextExpander():
     """ Class that manages the Text Expansions Snippets """
-
     def __init__(self, expansions_dir):
         """ Constructor method"""
         self.expansions_dir = expansions_dir

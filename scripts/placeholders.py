@@ -1,4 +1,3 @@
-# pylint: skip-file
 """
 This script parses the text expansion file contents and displays a dialog to ask the user to fill in any placeholders
 defined in the text snippet.
@@ -11,7 +10,7 @@ import json
 import dateparser
 
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk, Gdk  # noqa: E402
 
 RE_INPUT_PLACEHOLDERS = re.compile(r"@input\(([^)]+)\)", re.IGNORECASE)
 
@@ -49,7 +48,7 @@ def parse_date_placeholders(contents):
             if dt is not None:
                 formatted_dt = dt.strftime(dt_format)
 
-                contents = re.sub('@date\(%s\)' % re.escape(placeholder),
+                contents = re.sub(r'@date\(%s\)' % re.escape(placeholder),
                                   formatted_dt.title(), contents, 1)
         except ValueError:
             pass
@@ -59,7 +58,6 @@ def parse_date_placeholders(contents):
 
 class PlaceholdersDialog(Gtk.Dialog):
     """ Dialog window that asks for the values of the required placeholders for the text snippet """
-
     def __init__(self, content, input_placeholders=[], select_placeholders=[]):
 
         Gtk.Dialog.__init__(self,
@@ -73,7 +71,6 @@ class PlaceholdersDialog(Gtk.Dialog):
         self.selects = []
 
         # configure window size and position
-        #self.set_default_size(350, 200)
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_keep_above(True)
 
@@ -97,7 +94,10 @@ class PlaceholdersDialog(Gtk.Dialog):
             Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
     def build_widgets_for_input_placeholders(self, placeholders=[]):
-        """ Parses the text, extract any input placeholders variables and builds the ui to ask for the placeholders values """
+        """
+        Parses the text, extract any input placeholders variables and builds
+        the ui to ask for the placeholders values
+        """
 
         for ph in placeholders:
             data = json.loads(ph)
@@ -122,7 +122,10 @@ class PlaceholdersDialog(Gtk.Dialog):
             self.box.add(row)
 
     def build_widgets_for_select_placeholders(self, placeholders=[]):
-        """  Parses the text, extract any select placeholders variables and builds the ui to ask for the placeholders values """
+        """
+        Parses the text, extract any select placeholders variables
+        and builds the ui to ask for the placeholders values
+        """
 
         # iterates over all the placeholders and builds the form to insert its values
         for ph in placeholders:
@@ -151,8 +154,9 @@ class PlaceholdersDialog(Gtk.Dialog):
 
         for item in self.inputs:
             placeholder_value = item['widget'].get_text()
-            self.content = re.sub('@input\({"name":"%s"[^}]+}\)' % item['key'],
-                                  placeholder_value, self.content, 1)
+            self.content = re.sub(
+                r'@input\({"name":"%s"[^}]+}\)' % item['key'],
+                placeholder_value, self.content, 1)
 
         for item in self.selects:
             placeholder_value = item['widget'].get_active_text()
@@ -160,7 +164,7 @@ class PlaceholdersDialog(Gtk.Dialog):
                 placeholder_value = ""
 
             self.content = re.sub(
-                '@select\({"name":"%s"[^}]+}\)' % item['key'],
+                r'@select\({"name":"%s"[^}]+}\)' % item['key'],
                 placeholder_value, self.content, 1)
 
         return self.content
@@ -173,8 +177,8 @@ if file_path is None:
     sys.exit(-1)
 
 # Read the contents from the snippet file.
-with open(file_path, 'r') as f:
-    contents = f.read().decode('utf-8')
+with open(file_path, 'r', encoding='utf-8') as f:
+    contents = f.read()
 
 # Parse Date placeholders
 contents = parse_date_placeholders(contents)

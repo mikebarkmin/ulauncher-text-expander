@@ -1,1 +1,4 @@
 dateparser
+glob2
+gobject
+PyGObject

@@ -14,7 +14,7 @@ from ulauncher.api.shared.action.HideWindowAction import HideWindowAction
 from ulauncher.api.shared.action.ExtensionCustomAction import ExtensionCustomAction
 from ulauncher.api.shared.action.CopyToClipboardAction import CopyToClipboardAction
 from ulauncher.config import CONFIG_DIR
-from lib import TextExpander
+from lib.text_expander import TextExpander
 
 LOGGER = logging.getLogger(__name__)
 
@@ -24,7 +24,6 @@ PLACEHOLDER_SCRIPTS_PATH = os.path.join(os.path.dirname(__file__), 'scripts',
 
 class TextExpanderExtension(Extension):
     """ Main extension class """
-
     def __init__(self):
         """ init method """
         super(TextExpanderExtension, self).__init__()
@@ -59,7 +58,8 @@ class TextExpanderExtension(Extension):
                 ExtensionResultItem(
                     icon='images/icon.png',
                     name=item['normalized_name'],
-                    description='Select to fill placeholders and copy the contents to the clipboard',
+                    description=
+                    'Select to fill placeholders and copy the contents to the clipboard',
                     on_enter=ExtensionCustomAction(item)))
 
         return RenderResultListAction(items)
@@ -67,7 +67,6 @@ class TextExpanderExtension(Extension):
 
 class KeywordQueryEventListener(EventListener):
     """ Handles Keyboard input """
-
     def on_event(self, event, extension):
         """ Handles the event """
         expansions = extension.expansions_service.find(event.get_argument())
@@ -83,7 +82,6 @@ class PreferencesEventListener(EventListener):
     Listener for prefrences event.
     It is triggered on the extension start with the configured preferences
     """
-
     def on_event(self, event, extension):
         if event.preferences["expansions_dir"] != "":
             extension.expansions_service.set_expansions_dir(
@@ -98,7 +96,6 @@ class PreferencesUpdateEventListener(EventListener):
     Listener for "Preferences Update" event.
     It is triggered when the user changes any setting in preferences window
     """
-
     def on_event(self, event, extension):
         if event.id == 'expansions_dir':
             if event.new_value != "":
@@ -111,7 +108,6 @@ class PreferencesUpdateEventListener(EventListener):
 
 class ItemEnterEventListener(EventListener):
     """ Handles item enter """
-
     def on_event(self, event, extension):
         data = event.get_data()
 
@@ -129,7 +125,7 @@ class ItemEnterEventListener(EventListener):
         if process.returncode != 0:
             LOGGER.error(err)
 
-        return CopyToClipboardAction(out.decode()).run()
+        return CopyToClipboardAction(out.decode('utf-8')).run()
 
 
 if __name__ == '__main__':
