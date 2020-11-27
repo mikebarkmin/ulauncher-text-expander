@@ -1,5 +1,6 @@
 """Ulauncher extension main class """
 
+import sys
 import os
 import logging
 import subprocess
@@ -110,8 +111,7 @@ class ItemEnterEventListener(EventListener):
     """ Handles item enter """
     def on_event(self, event, extension):
         data = event.get_data()
-
-        cmd = "python %s %s " % (PLACEHOLDER_SCRIPTS_PATH, data['path'])
+        cmd = f"{sys.executable} {PLACEHOLDER_SCRIPTS_PATH} {data['path']} "
 
         process = subprocess.Popen(cmd,
                                    shell=True,
