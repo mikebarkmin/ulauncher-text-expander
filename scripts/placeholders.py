@@ -18,7 +18,7 @@ RE_SELECT_PLACEHOLDERS = re.compile(r"@select\(([^)]+)\)", re.IGNORECASE)
 
 RE_DATE_PLACEHOLDERS = re.compile(r"@date\(([^)]+)\)", re.IGNORECASE)
 
-GTK_STYLE = """
+GTK_STYLE = b"""
 * {
     -GtkDialog-content-area-spacing: 20;
 }
