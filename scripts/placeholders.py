@@ -196,6 +196,6 @@ if input_placeholders or select_placeholders:
     if result == Gtk.ResponseType.OK:
         contents = dialog.get_processed_content()
 
-print(contents.encode('utf-8'))
+print(contents)
 
 sys.exit(0)
