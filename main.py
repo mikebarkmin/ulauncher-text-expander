@@ -129,7 +129,7 @@ class ItemEnterEventListener(EventListener):
         if process.returncode != 0:
             LOGGER.error(err)
 
-        out = out.decode('utf-8')
+        out = out.decode('utf-8').strip()
 
         return CopyToClipboardAction(out)
 
